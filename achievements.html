@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>إنجازات المدرسة</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .small-btn { padding:5px 10px; border-radius:5px; cursor:pointer; }
+    #editAchievementsForm { display:none; margin-top:10px; }
+  </style>
+</head>
+<body>
+<header>
+  <div class="school-logos">
+    <img src="assets/logo1.png" alt="Logo 1">
+    <img src="assets/logo2.png" alt="Logo 2">
+  </div>
+  <h1>🏆 إنجازات المدرسة</h1>
+</header>
+
+<nav>
+  <a href="index.html">الرئيسية</a>
+  <a href="talents.html">المواهب</a>
+  <a href="parents.html">همسات لولي الأمر</a>
+  <a href="rules.html">قوانين اللائحة</a>
+  <a href="library.html">المكتبة الإلكترونية</a>
+</nav>
+
+<section>
+  <h2 style="display:flex; justify-content:space-between; align-items:center;">
+    نجاحاتنا
+    <button id="editAchievementsBtn" class="small-btn">✏️ تعديل المحتوى</button>
+  </h2>
+
+  <div class="grid" id="achievementsContent">
+    <div class="card">🥇 المركز الأول في مسابقة الروبوت</div>
+    <div class="card">🥈 إنجازات في الرياضة</div>
+    <div class="card">🥉 مشاركات في الفنون</div>
+  </div>
+
+  <!-- Achievements edit form -->
+  <div id="editAchievementsForm" style="display:none; margin-top:15px;">
+    <input type="text" id="achievementTitle" placeholder="عنوان الإنجاز"><br>
+    <textarea id="achievementContent" placeholder="وصف الإنجاز"></textarea><br>
+    <input type="file" id="achievementImage" accept="image/*"><br>
+    <button type="button" id="saveAchievementsBtn">📤 رفع وإضافة الإنجاز</button>
+  </div>
+  
+
+</section>
+
+<footer>
+  <p>© 2025 بوابة الإبداع</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

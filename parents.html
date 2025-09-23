@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>همسات لولي الأمر</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .small-btn { padding:5px 10px; border-radius:5px; cursor:pointer; margin-left:10px; }
+    #editParentsForm { display:none; margin-top:10px; }
+  </style>
+</head>
+<body>
+<header>
+  <div class="school-logos">
+    <img src="assets/logo1.png" alt="Logo 1">
+    <img src="assets/logo2.png" alt="Logo 2">
+  </div>
+  <h1>👨‍👩‍👧‍👦 همسات لولي الأمر</h1>
+</header>
+
+<nav>
+  <a href="index.html">الرئيسية</a>
+  <a href="talents.html">المواهب</a>
+  <a href="rules.html">قوانين اللائحة</a>
+  <a href="library.html">المكتبة الإلكترونية</a>
+  <a href="achievements.html">إنجازات المدرسة</a>
+</nav>
+
+<section id="parents">
+  <h2 style="display:flex; justify-content:space-between; align-items:center;">
+    دور أولياء الأمور في تحقيق الانضباط المدرسي
+    <button id="editParentsBtn" class="small-btn">✏️ تعديل المحتوى</button>
+  </h2>
+
+  <div class="parents-steps" id="parentsContent">
+    <div class="step blue"><span>🏫</span><p>تحفيز الأبناء على الذهاب إلى المدرسة</p></div>
+    <div class="step teal"><span>🎓</span><p>إعلام الأبناء بأهمية التعليم</p></div>
+    <div class="step green"><span>⚽</span><p>تشجيع الأبناء على الاشتراك في الأنشطة المختلفة</p></div>
+    <div class="step yellow"><span>🎯</span><p>مساعدة الأبناء على تحديد أهدافهم في الحياة</p></div>
+  </div>
+
+  <!-- Edit form -->
+  <div id="editParentsForm">
+    <textarea id="parentsTextarea" rows="6" style="width:100%;"></textarea><br>
+    <button id="saveParentsBtn">💾 حفظ التعديلات</button>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 بوابة الإبداع</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

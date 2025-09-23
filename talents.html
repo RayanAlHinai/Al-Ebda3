@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>المواهب</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .small-btn { padding:5px 10px; border-radius:5px; cursor:pointer; }
+    #editTalentForm { display:none; margin-top:10px; }
+  </style>
+</head>
+<body>
+<header>
+  <div class="school-logos">
+    <img src="assets/logo1.png" alt="Logo 1">
+    <img src="assets/logo2.png" alt="Logo 2">
+  </div>
+  <h1>🌟 المواهب</h1>
+</header>
+
+<nav>
+  <a href="index.html">الرئيسية</a>
+  <a href="parents.html">همسات لولي الأمر</a>
+  <a href="rules.html">قوانين اللائحة</a>
+  <a href="library.html">المكتبة الإلكترونية</a>
+  <a href="achievements.html">إنجازات المدرسة</a>
+</nav>
+
+<section>
+  <h2 style="display:flex; justify-content:space-between; align-items:center;">
+    عرض مواهب الطلبة
+    <button id="editTalentBtn" class="small-btn">✏️ تعديل المحتوى</button>
+  </h2>
+
+  <div class="grid" id="talentsContent">
+    <div class="card">🎨 رسم</div>
+    <div class="card">🎵 موسيقى</div>
+    <div class="card">✍️ كتابة</div>
+  </div>
+
+  <div id="editTalentForm" style="display:none; margin-top:15px;">
+    <input type="text" id="talentTitle" placeholder="عنوان الموهبة"><br>
+    <textarea id="talentContent" placeholder="وصف الموهبة"></textarea><br>
+    <input type="file" id="talentImage" accept="image/*"><br>
+    <button type="button" id="saveTalentBtn">📤 رفع وإضافة الموهبة</button>
+  </div>
+  
+</section>
+
+<footer>
+  <p>© 2025 بوابة الإبداع</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>المكتبة الإلكترونية</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    #editLibraryForm { display:none; margin-top:10px; }
+    #editLibraryForm input { width: 80%; padding:5px; margin-bottom:5px; display:block; }
+    #editLibraryForm button { padding:5px 10px; }
+    .book-item { margin-bottom:5px; }
+    .remove-btn { margin-left:10px; cursor:pointer; color:red; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="school-logos">
+      <img src="assets/logo1.png" alt="Logo 1">
+      <img src="assets/logo2.png" alt="Logo 2">
+    </div>
+    <h1>📚 المكتبة الإلكترونية</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">الرئيسية</a>
+    <a href="talents.html">المواهب</a>
+    <a href="parents.html">همسات لولي الأمر</a>
+    <a href="library.html">المكتبة الإلكترونية</a>
+    <a href="achievements.html">إنجازات المدرسة</a>
+  </nav>
+
+  <section>
+    <h2>
+      الكتب المتاحة
+      <button id="editLibraryBtn" class="small-btn">✏️ تعديل المكتبة</button>
+    </h2>
+
+    <ul id="libraryContent">
+      <li class="book-item"><a href="assets/sample.pdf" target="_blank">كتاب تجريبي</a></li>
+    </ul>
+
+    <!-- Edit Form -->
+    <div id="editLibraryForm">
+      <input type="text" id="bookName" placeholder="اسم الكتاب">
+      <input type="text" id="bookURL" placeholder="رابط الكتاب">
+      <button id="addBookBtn">➕ إضافة</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 بوابة الإبداع</p>
+  </footer>
+
+  <script>
+    const ADMIN_PASS = "Admin_2002";
+    const LIBRARY_KEY = "bawabatalibda3_library";
+
+    const libraryContent = document.getElementById("libraryContent");
+    const editBtn = document.getElementById("editLibraryBtn");
+    const editForm = document.getElementById("editLibraryForm");
+    const bookName = document.getElementById("bookName");
+    const bookURL = document.getElementById("bookURL");
+    const addBookBtn = document.getElementById("addBookBtn");
+
+    let books = JSON.parse(localStorage.getItem(LIBRARY_KEY) || "[]");
+    if (books.length) renderBooks();
+
+    function renderBooks() {
+      libraryContent.innerHTML = "";
+      books.forEach((book, i) => {
+        const li = document.createElement("li");
+        li.className = "book-item";
+        li.innerHTML = `<a href="${book.url}" target="_blank">${book.name}</a>`;
+
+        if (editForm.style.display === "block") {
+          const delBtn = document.createElement("span");
+          delBtn.textContent = "🗑";
+          delBtn.className = "remove-btn";
+          delBtn.onclick = () => {
+            books.splice(i, 1);
+            saveBooks();
+            renderBooks();
+          };
+          li.appendChild(delBtn);
+        }
+
+        libraryContent.appendChild(li);
+      });
+    }
+
+    function saveBooks() {
+      localStorage.setItem(LIBRARY_KEY, JSON.stringify(books));
+    }
+
+    editBtn.addEventListener("click", () => {
+      const pass = prompt("أدخل كلمة المرور للتعديل:");
+      if (pass !== ADMIN_PASS) return alert("كلمة المرور غير صحيحة ❌");
+      editForm.style.display = "block";
+      renderBooks();
+    });
+
+    addBookBtn.addEventListener("click", () => {
+      const name = bookName.value.trim();
+      const url = bookURL.value.trim();
+      if (!name || !url) return alert("الرجاء إدخال اسم الكتاب والرابط");
+      books.push({ name, url });
+      bookName.value = "";
+      bookURL.value = "";
+      saveBooks();
+      renderBooks();
+    });
+  </script>
+</body>
+</html>
