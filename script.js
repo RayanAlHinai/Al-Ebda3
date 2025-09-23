@@ -3,7 +3,7 @@ const ADMIN_PASS = "Admin_2002";
 
 /* ---------------------- NEWS ---------------------- */
 const NEWS_KEY = "bawabatalibda3_news";
-let editMode = false;
+let newsEditMode = false;
 let newsData = JSON.parse(localStorage.getItem(NEWS_KEY) || "[]");
 
 function renderNews() {
@@ -28,7 +28,7 @@ function renderNews() {
     p.textContent = news.content;
     card.appendChild(p);
 
-    if (editMode) {
+    if (newsEditMode) {
       const delBtn = document.createElement("button");
       delBtn.textContent = "🗑 حذف";
       delBtn.addEventListener("click", () => removeNews(index));
@@ -39,52 +39,15 @@ function renderNews() {
   });
 }
 
-function addNews() {
-  const title = document.getElementById("newsTitle").value.trim();
-  const content = document.getElementById("newsContent").value.trim();
-  const imageInput = document.getElementById("newsImage");
-
-  if (!title || !content) return alert("الرجاء إدخال عنوان ومحتوى الخبر");
-
-  if (imageInput.files && imageInput.files[0]) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const imageData = e.target.result;
-      newsData.unshift({ title, content, image: imageData });
-      localStorage.setItem(NEWS_KEY, JSON.stringify(newsData));
-      renderNews();
-      document.getElementById("newsTitle").value = "";
-      document.getElementById("newsContent").value = "";
-      imageInput.value = "";
-      alert("✅ تمت إضافة الخبر وحفظه");
-    };
-    reader.readAsDataURL(imageInput.files[0]);
-  } else {
-    newsData.unshift({ title, content, image: "" });
-    localStorage.setItem(NEWS_KEY, JSON.stringify(newsData));
-    renderNews();
-    document.getElementById("newsTitle").value = "";
-    document.getElementById("newsContent").value = "";
-    alert("✅ تمت إضافة الخبر وحفظه");
-  }
-}
-
-function removeNews(index) {
-  if (!confirm("هل أنت متأكد أنك تريد حذف هذا الخبر؟")) return;
-  newsData.splice(index, 1);
-  localStorage.setItem(NEWS_KEY, JSON.stringify(newsData));
-  renderNews();
-}
-
 function handleEditNews() {
   const pass = prompt("أدخل كلمة المرور للتعديل:");
   if (pass !== ADMIN_PASS) return alert("كلمة المرور غير صحيحة ❌");
 
-  editMode = !editMode;
+  newsEditMode = !newsEditMode;
   const editForm = document.getElementById("editForm");
   const editBtn = document.getElementById("editNewsBtn");
 
-  if (editMode) {
+  if (newsEditMode) {
     if (editForm) editForm.style.display = "block";
     if (editBtn) editBtn.textContent = "🔒 الخروج من التعديل";
   } else {
@@ -95,37 +58,39 @@ function handleEditNews() {
   renderNews();
 }
 
-/* ---------------------- GENERIC CONTENT EDITOR ---------------------- */
-function setupEditablePage(editBtnId, formId, textareaId, contentId, saveBtnId, storageKey) {
-  const editBtn = document.getElementById(editBtnId);
-  const form = document.getElementById(formId);
-  const textarea = document.getElementById(textareaId);
-  const container = document.getElementById(contentId);
-  const saveBtn = document.getElementById(saveBtnId);
+/* ---------------------- PARENTS ---------------------- */
+const PARENTS_KEY = "bawabatalibda3_parents";
+function setupParents() {
+  const parentsContent = document.getElementById("parentsContent");
+  const editBtn = document.getElementById("editParentsBtn");
+  const editForm = document.getElementById("editParentsForm");
+  const textarea = document.getElementById("parentsTextarea");
+  const saveBtn = document.getElementById("saveParentsBtn");
 
-  if (!editBtn || !form || !textarea || !container || !saveBtn) return;
+  if (!parentsContent || !editBtn || !editForm || !textarea || !saveBtn) return;
 
-  const savedContent = localStorage.getItem(storageKey);
-  if (savedContent) container.innerHTML = savedContent;
+  const saved = localStorage.getItem(PARENTS_KEY);
+  if (saved) parentsContent.innerHTML = saved;
 
   editBtn.addEventListener("click", () => {
     const pass = prompt("أدخل كلمة المرور للتعديل:");
     if (pass !== ADMIN_PASS) return alert("كلمة المرور غير صحيحة ❌");
 
-    textarea.value = container.innerHTML;
-    form.style.display = "block";
+    textarea.value = parentsContent.innerHTML;
+    editForm.style.display = editForm.style.display === "block" ? "none" : "block";
   });
 
   saveBtn.addEventListener("click", () => {
-    container.innerHTML = textarea.value;
-    localStorage.setItem(storageKey, textarea.value);
+    parentsContent.innerHTML = textarea.value;
+    localStorage.setItem(PARENTS_KEY, textarea.value);
     alert("✅ تم حفظ المحتوى");
-    form.style.display = "none";
+    editForm.style.display = "none";
   });
 }
 
 /* ---------------------- TALENTS ---------------------- */
 const TALENT_KEY = "bawabatalibda3_talent_list";
+let talentEditMode = false;
 let talents = JSON.parse(localStorage.getItem(TALENT_KEY) || "[]");
 
 function renderTalents() {
@@ -154,7 +119,7 @@ function renderTalents() {
     p.textContent = item.content;
     card.appendChild(p);
 
-    if (editMode) {
+    if (talentEditMode) {
       const delBtn = document.createElement("button");
       delBtn.textContent = "🗑 حذف";
       delBtn.style.marginTop = "8px";
@@ -166,45 +131,18 @@ function renderTalents() {
   });
 }
 
-function addTalent() {
-  const title = document.getElementById("talentTitle").value.trim();
-  const content = document.getElementById("talentContent").value.trim();
-  const imageInput = document.getElementById("talentImage");
-
-  if (!title || !content) return alert("الرجاء إدخال عنوان ووصف الموهبة");
-
-  if (imageInput.files && imageInput.files[0]) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const imageData = e.target.result;
-      talents.unshift({ title, content, image: imageData });
-      localStorage.setItem(TALENT_KEY, JSON.stringify(talents));
-      renderTalents();
-      document.getElementById("talentTitle").value = "";
-      document.getElementById("talentContent").value = "";
-      imageInput.value = "";
-      alert("✅ تم إضافة الموهبة وحفظها");
-    };
-    reader.readAsDataURL(imageInput.files[0]);
-  } else {
-    talents.unshift({ title, content, image: "" });
-    localStorage.setItem(TALENT_KEY, JSON.stringify(talents));
-    renderTalents();
-    document.getElementById("talentTitle").value = "";
-    document.getElementById("talentContent").value = "";
-    alert("✅ تم إضافة الموهبة وحفظها");
-  }
-}
-
-function removeTalent(index) {
-  if (!confirm("هل أنت متأكد أنك تريد حذف هذه الموهبة؟")) return;
-  talents.splice(index, 1);
-  localStorage.setItem(TALENT_KEY, JSON.stringify(talents));
+function toggleTalentEdit() {
+  const pass = prompt("أدخل كلمة المرور للتعديل:");
+  if (pass !== ADMIN_PASS) return alert("كلمة المرور غير صحيحة ❌");
+  talentEditMode = !talentEditMode;
+  const form = document.getElementById("editTalentForm");
+  form.style.display = form.style.display === "block" ? "none" : "block";
   renderTalents();
 }
 
 /* ---------------------- ACHIEVEMENTS ---------------------- */
 const ACHIEV_KEY = "bawabatalibda3_achievements_list";
+let achievementEditMode = false;
 let achievements = JSON.parse(localStorage.getItem(ACHIEV_KEY) || "[]");
 
 function renderAchievements() {
@@ -233,7 +171,7 @@ function renderAchievements() {
     p.textContent = item.content;
     card.appendChild(p);
 
-    if (editMode) {
+    if (achievementEditMode) {
       const delBtn = document.createElement("button");
       delBtn.textContent = "🗑 حذف";
       delBtn.style.marginTop = "8px";
@@ -245,40 +183,12 @@ function renderAchievements() {
   });
 }
 
-function addAchievement() {
-  const title = document.getElementById("achievementTitle").value.trim();
-  const content = document.getElementById("achievementContent").value.trim();
-  const imageInput = document.getElementById("achievementImage");
-
-  if (!title || !content) return alert("الرجاء إدخال عنوان ووصف الإنجاز");
-
-  if (imageInput.files && imageInput.files[0]) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const imageData = e.target.result;
-      achievements.unshift({ title, content, image: imageData });
-      localStorage.setItem(ACHIEV_KEY, JSON.stringify(achievements));
-      renderAchievements();
-      document.getElementById("achievementTitle").value = "";
-      document.getElementById("achievementContent").value = "";
-      imageInput.value = "";
-      alert("✅ تم إضافة الإنجاز وحفظه");
-    };
-    reader.readAsDataURL(imageInput.files[0]);
-  } else {
-    achievements.unshift({ title, content, image: "" });
-    localStorage.setItem(ACHIEV_KEY, JSON.stringify(achievements));
-    renderAchievements();
-    document.getElementById("achievementTitle").value = "";
-    document.getElementById("achievementContent").value = "";
-    alert("✅ تم إضافة الإنجاز وحفظه");
-  }
-}
-
-function removeAchievement(index) {
-  if (!confirm("هل أنت متأكد أنك تريد حذف هذا الإنجاز؟")) return;
-  achievements.splice(index, 1);
-  localStorage.setItem(ACHIEV_KEY, JSON.stringify(achievements));
+function toggleAchievementEdit() {
+  const pass = prompt("أدخل كلمة المرور للتعديل:");
+  if (pass !== ADMIN_PASS) return alert("كلمة المرور غير صحيحة ❌");
+  achievementEditMode = !achievementEditMode;
+  const form = document.getElementById("editAchievementsForm");
+  form.style.display = form.style.display === "block" ? "none" : "block";
   renderAchievements();
 }
 
@@ -289,35 +199,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const editNewsBtn = document.getElementById("editNewsBtn");
   if (editNewsBtn) editNewsBtn.addEventListener("click", handleEditNews);
 
+  // Parents
+  setupParents();
+
   // Talents
   renderTalents();
   const editTalentBtn = document.getElementById("editTalentBtn");
-  const formTalent = document.getElementById("editTalentForm");
+  if (editTalentBtn) editTalentBtn.addEventListener("click", toggleTalentEdit);
   const saveTalentBtn = document.getElementById("saveTalentBtn");
-  if (editTalentBtn && formTalent && saveTalentBtn) {
-    editTalentBtn.addEventListener("click", () => {
-      const pass = prompt("أدخل كلمة المرور للتعديل:");
-      if (pass !== ADMIN_PASS) return alert("كلمة المرور غير صحيحة ❌");
-      formTalent.style.display = formTalent.style.display === "none" ? "block" : "none";
-      editMode = !editMode;
-      renderTalents();
-    });
-    saveTalentBtn.addEventListener("click", addTalent);
-  }
+  if (saveTalentBtn) saveTalentBtn.addEventListener("click", addTalent);
 
   // Achievements
   renderAchievements();
   const editAchievBtn = document.getElementById("editAchievementsBtn");
-  const formAchiev = document.getElementById("editAchievementsForm");
+  if (editAchievBtn) editAchievBtn.addEventListener("click", toggleAchievementEdit);
   const saveAchievBtn = document.getElementById("saveAchievementsBtn");
-  if (editAchievBtn && formAchiev && saveAchievBtn) {
-    editAchievBtn.addEventListener("click", () => {
-      const pass = prompt("أدخل كلمة المرور للتعديل:");
-      if (pass !== ADMIN_PASS) return alert("كلمة المرور غير صحيحة ❌");
-      formAchiev.style.display = formAchiev.style.display === "none" ? "block" : "none";
-      editMode = !editMode;
-      renderAchievements();
-    });
-    saveAchievBtn.addEventListener("click", addAchievement);
-  }
+  if (saveAchievBtn) saveAchievBtn.addEventListener("click", addAchievement);
 });
