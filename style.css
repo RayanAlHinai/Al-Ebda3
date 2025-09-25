@@ -244,8 +244,8 @@ body {
 }
 
 .logo-left img {
-  max-width: 180px;        /* logo width */
-  max-height: 180px;       /* logo height */
+  max-width: 200px;        /* logo width */
+  max-height: 200px;       /* logo height */
   object-fit: contain; 
 }
 
