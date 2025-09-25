@@ -233,33 +233,36 @@ body {
   margin: 0 auto 10px;    /* center and add spacing */
   border-radius: 5px;
 }
+
+
 /* Top-left logo */
 .logo-left {
-  position: absolute;
-  top: 10px;
-  left: 10px;
+  position: fixed;  /* stays even when scrolling */
+  top: 5px;         /* very close to top */
+  left: 5px;        /* very close to left */
   z-index: 1000;
 }
 
 .logo-left img {
-  max-width: 180px;
-  max-height: 180px;
+  width: 60px;      /* small size */
+  height: 60px;
   object-fit: contain;
 }
 
 /* Top-right logo */
 .logo-right {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  position: fixed;  /* stays even when scrolling */
+  top: 5px;         /* very close to top */
+  right: 5px;       /* very close to right */
   z-index: 1000;
 }
 
 .logo-right img {
-  max-width: 180px;
-  max-height: 180px;
+  width: 60px;      /* small size */
+  height: 60px;
   object-fit: contain;
 }
+
 
 
 
