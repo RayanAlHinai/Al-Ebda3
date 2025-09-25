@@ -233,21 +233,35 @@ body {
   margin: 0 auto 10px;    /* center and add spacing */
   border-radius: 5px;
 }
-
-.school-logos {
-  position: absolute;     /* position in top-right corner */
-  top: 10px;              /* distance from top */
-  right: 10px;            /* distance from right */
-  display: flex;
-  gap: 10px;              /* space between the two logos */
-  z-index: 1000;          /* ensure it stays above other elements */
+/* Top-left logo */
+.logo-left {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
 }
 
-.school-logos img {
-  max-width: 180px;        /* logo width */
-  max-height: 180px;       /* logo height */
-  object-fit: contain;    /* keep proportions */
+.logo-left img {
+  max-width: 180px;
+  max-height: 180px;
+  object-fit: contain;
 }
+
+/* Top-right logo */
+.logo-right {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+.logo-right img {
+  max-width: 180px;
+  max-height: 180px;
+  object-fit: contain;
+}
+
+
 
   
   
