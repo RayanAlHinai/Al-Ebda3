@@ -7,7 +7,7 @@ body {
   }
   
   header {
-    background: #c09bd2;
+    background: #9f71b6;
     color: white;
     padding: 70px;
     text-align: center;
@@ -139,7 +139,7 @@ body {
   }
   
   footer {
-    background: #c09bd2;
+    background: #9f71b6;
     color: white;
     text-align: center;
     padding: 20px;
@@ -208,7 +208,7 @@ body {
     cursor: pointer;
   }
   .small-btn:hover {
-    background-color: #c09bd2;
+    background-color: #9f71b6;
   }
 
   .remove-btn {
