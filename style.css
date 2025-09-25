@@ -244,8 +244,8 @@ body {
 }
 
 .logo-left img {
-  width: 60px;      /* small size */
-  height: 60px;
+  width: 180px;      /* small size */
+  height: 180px;
   object-fit: contain;
 }
 
@@ -258,8 +258,8 @@ body {
 }
 
 .logo-right img {
-  width: 60px;      /* small size */
-  height: 60px;
+  width: 180px;      /* small size */
+  height: 180px;
   object-fit: contain;
 }
 
