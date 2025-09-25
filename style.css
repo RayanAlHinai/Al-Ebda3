@@ -7,7 +7,7 @@ body {
   }
   
   header {
-    background: #09030c;
+    background: #581a77;
     color: white;
     padding: 70px;
     text-align: center;
@@ -139,7 +139,7 @@ body {
   }
   
   footer {
-    background: #9f71b6;
+    background: #581a77;
     color: white;
     text-align: center;
     padding: 20px;
@@ -201,14 +201,14 @@ body {
     font-size: 12px;
     padding: 5px 10px;
     margin-right: 10px;
-    background-color: #c09bd2;
+    background-color: #581a77;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
   }
   .small-btn:hover {
-    background-color: #9f71b6;
+    background-color: #581a77;
   }
 
   .remove-btn {
