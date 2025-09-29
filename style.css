@@ -1,270 +1,270 @@
 body {
-    font-family: "Tahoma", sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #f9f9f9;
-    color: #bb9ac8;
-  }
-  
-  header {
-    background: #6b258e;
-    color: white;
-    padding: 70px;
-    text-align: center;
-  }
-  
-  header h1 {
-    margin: 0;
-    font-size: 2.2em;
-  }
-  
-  nav {
-    background: #d2bbdd;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  nav a {
-    color: white;
-    text-decoration: none;
-    padding: 14px 20px;
-    display: block;
-    transition: 0.3s;
-  }
-  
-  nav a:hover {
-    background: #1abc9c;
-  }
-  
-  section {
-    padding: 40px 20px;
-    text-align: center;
-  }
-  
-  section h2 {
-    color: #04090d;
-    margin-bottom: 20px;
-  }
+  font-family: "Tahoma", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f9f9f9;
+  color: #bb9ac8;
+}
 
-  /* الخلفية الأساسية تمتد تقريباً لكل الصفحة */
+header {
+  background: #6b258e;
+  color: white;
+  padding: 70px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.2em;
+}
+
+nav {
+  background: #d2bbdd;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 14px 20px;
+  display: block;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  background: #1abc9c;
+}
+
+section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+section h2 {
+  color: #04090d;
+  margin-bottom: 20px;
+}
+
+/* الخلفية الأساسية تمتد تقريباً لكل الصفحة */
 .main-bg {
-    background: url("assets/background.jpeg") no-repeat center center/cover;
-    background-size: cover;
-    min-height: calc(95vh - 60px); /* يغطي تقريبا كامل الشاشة بدون الفوتر */
-    position: relative;
-    padding: 40px 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* يجعل المحتوى في منتصف الارتفاع */
-    color: #222;
-  }
-  
-  /* الطبقة الشفافة لتسهيل قراءة النصوص */
-  .main-bg .overlay {
-    background: rgba(255, 255, 255, 0.8); /* طبقة شفافة */
-    padding: 40px;
-    border-radius: 10px;
-    max-width: 1400px;
-    width: 90%;
-    margin: 0 auto; /* يضعها في منتصف الصفحة أفقياً */
-    flex-grow: 1; /* يجعلها تمتد لتملأ القسم */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* توزيع المقدمة والأخبار بشكل متوازن */
-    gap: 30px;
-  }
-  
-  /* المقدمة */
-  .intro {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  
-  .intro h2 {
-    font-size: 28px;
-    margin-bottom: 15px;
-  }
-  
-  .intro p {
-    font-size: 18px;
-    color: #333;
-  }
-  
-  /* الأخبار */
-  .news-section h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .news-slider {
-    display: flex;
-    overflow-x: auto;
-    gap: 20px;
-    padding: 10px;
-    background: rgba(255,255,255,0.9);
-    border-radius: 10px;
-    min-height: 250px;
-  }
-  
-  .news-card {
-    min-width: 320px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0px 3px 8px rgba(0,0,0,0.15);
-    padding: 15px;
-    text-align: right;
-    transition: transform 0.2s;
-  }
-  
-  .news-card:hover {
-    transform: scale(1.03);
-  }
-  
-  .news-card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  
-  .news-card h3 {
-    margin: 12px 0 6px;
-    font-size: 20px;
-  }
-  
-  .news-card p {
-    font-size: 15px;
-    color: #444;
-  }
-  
-  footer {
-    background: #733293;
-    color: white;
-    text-align: center;
-    padding: 20px;
-  }
+  background: url("assets/background.jpeg") no-repeat center center/cover;
+  background-size: cover;
+  min-height: calc(95vh - 60px); /* يغطي تقريبا كامل الشاشة بدون الفوتر */
+  position: relative;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* يجعل المحتوى في منتصف الارتفاع */
+  color: #222;
+}
+
+/* الطبقة الشفافة لتسهيل قراءة النصوص */
+.main-bg .overlay {
+  background: rgba(255, 255, 255, 0.8); /* طبقة شفافة */
+  padding: 40px;
+  border-radius: 10px;
+  max-width: 1400px;
+  width: 90%;
+  margin: 0 auto; /* يضعها في منتصف الصفحة أفقياً */
+  flex-grow: 1; /* يجعلها تمتد لتملأ القسم */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* توزيع المقدمة والأخبار بشكل متوازن */
+  gap: 30px;
+}
+
+/* المقدمة */
+.intro {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.intro h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.intro p {
+  font-size: 18px;
+  color: #333;
+}
+
+/* الأخبار */
+.news-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.news-slider {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 10px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 10px;
+  min-height: 250px;
+}
+
+.news-card {
+  min-width: 320px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 3px 8px rgba(0,0,0,0.15);
+  padding: 15px;
+  text-align: right;
+  transition: transform 0.2s;
+}
+
+.news-card:hover {
+  transform: scale(1.03);
+}
+
+.news-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.news-card h3 {
+  margin: 12px 0 6px;
+  font-size: 20px;
+}
+
+.news-card p {
+  font-size: 15px;
+  color: #444;
+}
+
+footer {
+  background: #733293;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
 
 
-  #parents {
-    background: #f9f9f9;
-    padding: 50px 20px;
-    text-align: center;
-  }
-  
-  #parents h2 {
-    color: #222;
-    margin-bottom: 40px;
-    font-size: 26px;
-  }
-  
-  .parents-steps {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .step {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 15px 20px;
-    border-radius: 8px;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: right;
-  }
-  
-  .step span {
-    font-size: 28px;
-    margin-left: 15px;
-  }
-  
-  .step p {
-    margin: 0;
-    flex: 1;
-  }
-  
-  /* Colors like the infographic */
-  .blue { background: #3b82f6; }
-  .teal { background: #14b8a6; }
-  .green { background: #22c55e; }
-  .yellow { background: #eab308; color: #333; }
-  .orange { background: #f97316; }
-  .sky { background: #06b6d4; }
+#parents {
+  background: #f9f9f9;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+#parents h2 {
+  color: #222;
+  margin-bottom: 40px;
+  font-size: 26px;
+}
+
+.parents-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 15px 20px;
+  border-radius: 8px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.step span {
+  font-size: 28px;
+  margin-left: 15px;
+}
+
+.step p {
+  margin: 0;
+  flex: 1;
+}
+
+/* Colors like the infographic */
+.blue { background: #3b82f6; }
+.teal { background: #14b8a6; }
+.green { background: #22c55e; }
+.yellow { background: #eab308; color: #333; }
+.orange { background: #f97316; }
+.sky { background: #06b6d4; }
 
 
-  .small-btn {
-    font-size: 12px;
-    padding: 5px 10px;
-    margin-right: 10px;
-    background-color: #581a77;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  .small-btn:hover {
-    background-color: #581a77;
-  }
+.small-btn {
+  font-size: 12px;
+  padding: 5px 10px;
+  margin-right: 10px;
+  background-color: #581a77;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.small-btn:hover {
+  background-color: #581a77;
+}
 
-  .remove-btn {
-    font-size: 12px;
-    padding: 4px 8px;
-    margin-top: 8px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  .remove-btn:hover {
-    background-color: #b02a37;
-  }
+.remove-btn {
+  font-size: 12px;
+  padding: 4px 8px;
+  margin-top: 8px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.remove-btn:hover {
+  background-color: #b02a37;
+}
 /* Talent and Achievement images */
 .card img {
-  max-width: 500px;      /* limits width */
-  max-height: 300px;     /* limits height */
-  object-fit: cover;     /* crop if needed without stretching */
-  display: block;
-  margin: 0 auto 10px;    /* center and add spacing */
-  border-radius: 5px;
+max-width: 500px;      /* limits width */
+max-height: 300px;     /* limits height */
+object-fit: cover;     /* crop if needed without stretching */
+display: block;
+margin: 0 auto 10px;    /* center and add spacing */
+border-radius: 5px;
 }
 
 
 /* Top-left logo */
 .logo-left {
-  position: fixed;  /* stays even when scrolling */
-  top: 10px;         /* very close to top */
-  left: 10px;        /* very close to left */
+  position: fixed;  /* fixed relative to viewport */
+  top: 10px;        
+  left: 10px;       
   z-index: 1000;
 }
 
 .logo-left img {
-  max-width: 200px;        /* logo width */
-  max-height: 200px;       /* logo height */
-  object-fit: contain; 
+  max-width: 150px;
+  max-height: 150px;
+  object-fit: contain;
 }
 
 /* Top-right logo */
 .logo-right {
-  position: fixed;  /* stays even when scrolling */
-  top: 10px;         /* very close to top */
-  right: 10px;       /* very close to right */
+  position: fixed;
+  top: 10px;
+  right: 10px;
   z-index: 1000;
 }
 
 .logo-right img {
-  max-width: 180px;        /* logo width */
-  max-height: 180px;       /* logo height */
-  object-fit: contain; 
+  max-width: 150px;
+  max-height: 150px;
+  object-fit: contain;
 }
 
 
 
 
-  
-  
+
+
