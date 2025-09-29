@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta name="google-site-verification" content="XYEDBRl7wO0BTPB2Cs10m1tAFOFcS9CAr4_dV3QoJSk" />
   <meta charset="UTF-8">
   <title>بوابة الإبداع</title>
   <link rel="stylesheet" href="style.css">
-  
   <style>
+    body {
+      font-family: Tahoma, sans-serif;
+    }
     .news-slider {
       display: flex;
       overflow-x: auto;
@@ -36,7 +37,6 @@
       color: #555;
     }
 
-    /* زر تعديل الأخبار */
     #editNewsBtn {
       background: #c09bd2;
       color: white;
@@ -51,7 +51,6 @@
       background: #9b75ad;
     }
 
-    /* فورم إضافة خبر */
     #editForm {
       display: none;
       margin-top: 20px;
@@ -83,24 +82,11 @@
   </style>
 </head>
 <body>
-  <div class="logo-left">
-    <img src="assets/logo2.png" alt="Left Logo">
-  </div>
-
-  <div class="logo-right">
-    <img src="assets/logo1.png" alt="Right Logo">
-  </div>
   <header>
-    <div class="logo-left">
-      <img src="assets/logo2.png" alt="Left Logo">
-    </div>
-
-    <div class="logo-right">
-       <img src="assets/logo1.png" alt="Right Logo">
-    </div>
+    <div class="logo-left"><img src="assets/logo2.png" alt="Left Logo"></div>
+    <div class="logo-right"><img src="assets/logo1.png" alt="Right Logo"></div>
     <h1>بوابة الإبداع</h1>
     <p>منصة المدرسة لعرض المواهب والإنجازات</p>
-    
   </header>
 
   <nav>
@@ -111,7 +97,6 @@
     <a href="achievements.html">إنجازات المدرسة</a>
   </nav>
 
-  <!-- قسم المحتوى مع الخلفية -->
   <section class="main-bg">
     <div class="overlay">
       <div class="intro">
@@ -119,125 +104,19 @@
       </div>
 
       <h2 style="display:flex; justify-content:space-between; align-items:center;">
-      📰 الأخبار
-        <button id="editNewsBtn" class="small-btn">✏️ تعديل الأخبار</button>
+        📰 الأخبار
+        <button id="editNewsBtn">✏️ تعديل الأخبار</button>
       </h2>
 
       <div class="news-slider" id="newsContainer"></div>
 
-<!-- فورم إضافة الأخبار (يظهر فقط بعد كلمة المرور) -->
-      <div id="editForm" style="display:none;">
+      <div id="editForm">
         <h3>إضافة خبر جديد</h3>
         <input type="text" id="newsTitle" placeholder="عنوان الخبر"><br>
         <textarea id="newsContent" placeholder="محتوى الخبر"></textarea><br>
         <input type="file" id="newsImage" accept="image/*"><br>
         <button type="button" id="addNewsBtn">📤 رفع وإضافة الخبر</button>
       </div>
-
-      <script>
-          const ADMIN_PASS = "Admin_2002";
-          const NEWS_KEY = "bawabatalibda3_news";
-          let newsEditMode = false;
-          let newsData = JSON.parse(localStorage.getItem(NEWS_KEY) || "[]");
-          
-          function renderNews() {
-            const container = document.getElementById("newsContainer");
-            if (!container) return;
-            container.innerHTML = "";
-          
-            newsData.forEach((news, index) => {
-              const card = document.createElement("div");
-              card.className = "news-card";
-            
-              const img = document.createElement("img");
-              img.src = news.image || "https://via.placeholder.com/600x300";
-              img.alt = news.title || "news image";
-              card.appendChild(img);
-            
-              const h3 = document.createElement("h3");
-              h3.textContent = news.title;
-              card.appendChild(h3);
-            
-              const p = document.createElement("p");
-              p.textContent = news.content;
-              card.appendChild(p);
-            
-              if (newsEditMode) {
-                const delBtn = document.createElement("button");
-                delBtn.textContent = "🗑 حذف";
-                delBtn.addEventListener("click", () => {
-                  newsData.splice(index, 1);
-                  localStorage.setItem(NEWS_KEY, JSON.stringify(newsData));
-                  renderNews();
-                });
-                card.appendChild(delBtn);
-              }
-            
-              container.appendChild(card);
-            });
-          }
-          
-          function handleEditNews() {
-            const pass = prompt("أدخل كلمة المرور للتعديل:");
-            if (pass !== ADMIN_PASS) return alert("كلمة المرور غير صحيحة ❌");
-            
-            newsEditMode = !newsEditMode;
-            const editForm = document.getElementById("editForm");
-            const editBtn = document.getElementById("editNewsBtn");
-            
-            if (newsEditMode) {
-              editForm.style.display = "block";
-              editBtn.textContent = "🔒 الخروج من التعديل";
-            } else {
-              editForm.style.display = "none";
-              editBtn.textContent = "✏️ تعديل الأخبار";
-            }
-            
-            renderNews();
-          }
-          
-          function addNews() {
-            const title = document.getElementById("newsTitle").value.trim();
-            const content = document.getElementById("newsContent").value.trim();
-            const imageInput = document.getElementById("newsImage");
-            let imageURL = "";
-            
-            if (!title || !content) {
-              alert("الرجاء إدخال عنوان الخبر ومحتواه");
-              return;
-            }
-            
-            if (imageInput.files && imageInput.files[0]) {
-              const reader = new FileReader();
-              reader.onload = function(e) {
-                imageURL = e.target.result;
-                saveNews(title, content, imageURL);
-              };
-              reader.readAsDataURL(imageInput.files[0]);
-            } else {
-              saveNews(title, content, imageURL);
-            }
-          }
-          
-          function saveNews(title, content, image) {
-            newsData.push({ title, content, image });
-            localStorage.setItem(NEWS_KEY, JSON.stringify(newsData));
-            renderNews();
-            
-            // تنظيف الفورم
-            document.getElementById("newsTitle").value = "";
-            document.getElementById("newsContent").value = "";
-            document.getElementById("newsImage").value = "";
-          }
-          
-          // INIT
-          document.addEventListener("DOMContentLoaded", () => {
-            renderNews();
-            document.getElementById("editNewsBtn").addEventListener("click", handleEditNews);
-            document.getElementById("addNewsBtn").addEventListener("click", addNews);
-          });
-      </script>
-      
     </div>
   </section>
 
@@ -245,6 +124,112 @@
     <p>© 2025 بوابة الإبداع - جميع الحقوق محفوظة</p>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- ✅ Full JS inline and working -->
+  <script>
+    const ADMIN_PASS = "Admin_2002";
+    const NEWS_KEY = "bawabatalibda3_news";
+    let newsEditMode = false;
+    let newsData = JSON.parse(localStorage.getItem(NEWS_KEY) || "[]");
+
+    function renderNews() {
+      const container = document.getElementById("newsContainer");
+      container.innerHTML = "";
+      newsData.forEach((news, index) => {
+        const card = document.createElement("div");
+        card.className = "news-card";
+
+        const img = document.createElement("img");
+        img.src = news.image || "https://via.placeholder.com/600x300";
+        img.alt = news.title || "news image";
+        card.appendChild(img);
+
+        const h3 = document.createElement("h3");
+        h3.textContent = news.title;
+        card.appendChild(h3);
+
+        const p = document.createElement("p");
+        p.textContent = news.content;
+        card.appendChild(p);
+
+        if (newsEditMode) {
+          const delBtn = document.createElement("button");
+          delBtn.textContent = "🗑 حذف";
+          delBtn.style.background = "#ef4444";
+          delBtn.style.color = "#fff";
+          delBtn.style.border = "none";
+          delBtn.style.padding = "5px 10px";
+          delBtn.style.borderRadius = "5px";
+          delBtn.style.cursor = "pointer";
+          delBtn.onclick = () => {
+            newsData.splice(index, 1);
+            localStorage.setItem(NEWS_KEY, JSON.stringify(newsData));
+            renderNews();
+          };
+          card.appendChild(delBtn);
+        }
+
+        container.appendChild(card);
+      });
+    }
+
+    function handleEditNews() {
+      const pass = prompt("أدخل كلمة المرور للتعديل:");
+      if (pass !== ADMIN_PASS) return alert("كلمة المرور غير صحيحة ❌");
+
+      newsEditMode = !newsEditMode;
+      const editForm = document.getElementById("editForm");
+      const editBtn = document.getElementById("editNewsBtn");
+
+      if (newsEditMode) {
+        editForm.style.display = "block";
+        editBtn.textContent = "🔒 الخروج من التعديل";
+      } else {
+        editForm.style.display = "none";
+        editBtn.textContent = "✏️ تعديل الأخبار";
+      }
+
+      renderNews();
+    }
+
+    function addNews() {
+      const title = document.getElementById("newsTitle").value.trim();
+      const content = document.getElementById("newsContent").value.trim();
+      const imageInput = document.getElementById("newsImage");
+
+      if (!title || !content) {
+        alert("الرجاء إدخال عنوان الخبر ومحتواه");
+        return;
+      }
+
+      if (imageInput.files && imageInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          saveNews(title, content, e.target.result);
+        };
+        reader.readAsDataURL(imageInput.files[0]);
+      } else {
+        saveNews(title, content, "");
+      }
+    }
+
+    function saveNews(title, content, image) {
+      newsData.push({ title, content, image });
+      localStorage.setItem(NEWS_KEY, JSON.stringify(newsData));
+      renderNews();
+
+      // تنظيف الفورم
+      document.getElementById("newsTitle").value = "";
+      document.getElementById("newsContent").value = "";
+      document.getElementById("newsImage").value = "";
+      alert("✅ تم رفع الخبر بنجاح!");
+    }
+
+    // ✅ Attach listeners after DOM is ready
+    window.onload = function() {
+      renderNews();
+      document.getElementById("editNewsBtn").onclick = handleEditNews;
+      document.getElementById("addNewsBtn").onclick = addNews;
+    };
+  </script>
 </body>
 </html>
