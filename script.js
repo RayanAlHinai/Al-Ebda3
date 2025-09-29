@@ -58,6 +58,41 @@ function handleEditNews() {
   renderNews();
 }
 
+function addNews() {
+  const title = document.getElementById("newsTitle").value.trim();
+  const content = document.getElementById("newsContent").value.trim();
+  const imageInput = document.getElementById("newsImage");
+  let imageURL = "";
+  
+  if (imageInput.files && imageInput.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      imageURL = e.target.result;
+      saveNews(title, content, imageURL);
+    };
+    reader.readAsDataURL(imageInput.files[0]);
+  } else {
+    saveNews(title, content, imageURL);
+  }
+}
+
+function saveNews(title, content, image) {
+  if (!title || !content) {
+    alert("الرجاء إدخال عنوان الخبر ومحتواه");
+    return;
+}
+
+  newsData.push({ title, content, image });
+  localStorage.setItem(NEWS_KEY, JSON.stringify(newsData));
+  renderNews();
+  
+  // تنظيف الفورم
+  document.getElementById("newsTitle").value = "";
+  document.getElementById("newsContent").value = "";
+  document.getElementById("newsImage").value = "";
+}
+
+
 /* ---------------------- PARENTS ---------------------- */
 const PARENTS_KEY = "bawabatalibda3_parents";
 function setupParents() {
@@ -199,6 +234,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const editNewsBtn = document.getElementById("editNewsBtn");
   if (editNewsBtn) editNewsBtn.addEventListener("click", handleEditNews);
 
+  const addNewsBtn = document.getElementById("editNewsBtn");
+  if (editNewsBtn) editNewsBtn.addEventListener("click", addNews);
+
   // Parents
   setupParents();
 
@@ -218,36 +256,3 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-function addNews() {
-  const title = document.getElementById("newsTitle").value.trim();
-  const content = document.getElementById("newsContent").value.trim();
-  const imageInput = document.getElementById("newsImage");
-  let imageURL = "";
-  
-  if (imageInput.files && imageInput.files[0]) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      imageURL = e.target.result;
-      saveNews(title, content, imageURL);
-    };
-    reader.readAsDataURL(imageInput.files[0]);
-  } else {
-    saveNews(title, content, imageURL);
-  }
-}
-
-function saveNews(title, content, image) {
-  if (!title || !content) {
-    alert("الرجاء إدخال عنوان الخبر ومحتواه");
-    return;
-}
-
-  newsData.push({ title, content, image });
-  localStorage.setItem(NEWS_KEY, JSON.stringify(newsData));
-  renderNews();
-  
-  // تنظيف الفورم
-  document.getElementById("newsTitle").value = "";
-  document.getElementById("newsContent").value = "";
-  document.getElementById("newsImage").value = "";
-}
