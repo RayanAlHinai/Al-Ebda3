@@ -3,8 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>بوابة الإبداع</title>
+  <link rel="stylesheet" href="style.css">
+
   <style>
-    body { font-family: Tahoma, sans-serif; }
+    body {
+      font-family: Tahoma, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+
+
     .news-slider {
       display: flex;
       overflow-x: auto;
@@ -21,14 +30,30 @@
       box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
       padding: 10px;
       text-align: right;
+      position: relative;
     }
     .news-card img {
       width: 100%;
       border-radius: 6px;
     }
-    .news-card h3 { margin: 10px 0 5px; }
-    .news-card p { font-size: 14px; color: #555; }
+    .news-card h3 {
+      margin: 10px 0 5px;
+    }
+    .news-card p {
+      font-size: 14px;
+      color: #555;
+    }
+    .remove-btn {
+      position: absolute;
+      top: 5px;
+      left: 10px;
+      color: red;
+      cursor: pointer;
+      font-size: 20px;
+      display: none;
+    }
 
+    /* زر تعديل الأخبار */
     #editNewsBtn {
       background: #c09bd2;
       color: white;
@@ -39,8 +64,11 @@
       margin-top: 10px;
       margin-bottom: 10px;
     }
-    #editNewsBtn:hover { background: #9b75ad; }
+    #editNewsBtn:hover {
+      background: #9b75ad;
+    }
 
+    /* فورم إضافة خبر */
     #editForm {
       display: none;
       margin-top: 20px;
@@ -66,137 +94,143 @@
       border-radius: 5px;
       cursor: pointer;
     }
-    #editForm button:hover { background: #16a34a; }
+    #editForm button:hover {
+      background: #16a34a;
+    }
   </style>
 </head>
 <body>
+  <div class="logo-left">
+    <img src="assets/logo2.png" alt="Left Logo">
+  </div>
 
+  <div class="logo-right">
+    <img src="assets/logo1.png" alt="Right Logo">
+  </div>
   <header>
+    
     <h1>بوابة الإبداع</h1>
     <p>منصة المدرسة لعرض المواهب والإنجازات</p>
   </header>
 
-  <h2 style="display:flex; justify-content:space-between; align-items:center;">
-    📰 الأخبار
-    <button id="editNewsBtn">✏️ تعديل الأخبار</button>
-  </h2>
+  <nav>
+    <a href="talents.html">المواهب</a>
+    <a href="parents.html">همسات لولي الأمر</a>
+    <a href="rules.html">قوانين اللائحة</a>
+    <a href="library.html">المكتبة الإلكترونية</a>
+    <a href="achievements.html">إنجازات المدرسة</a>
+  </nav>
 
-  <div class="news-slider" id="newsContainer"></div>
+  <section class="main-bg">
+    <div class="overlay">
+      <div class="intro">
+        <h2>أهلاً بكم في بوابة الإبداع</h2>
+      </div>
 
-  <div id="editForm">
-    <h3>إضافة خبر جديد</h3>
-    <input type="text" id="newsTitle" placeholder="عنوان الخبر"><br>
-    <textarea id="newsContent" placeholder="محتوى الخبر"></textarea><br>
-    <input type="file" id="newsImage" accept="image/*"><br>
-    <button type="button" id="addNewsBtn">📤 رفع وإضافة الخبر</button>
-  </div>
+      <h2 style="display:flex; justify-content:space-between; align-items:center;">
+        📰 الأخبار
+        <button id="editNewsBtn" class="small-btn">✏️ تعديل الأخبار</button>
+      </h2>
+      
+      <div class="news-slider" id="newsContainer"></div>
+
+      <!-- فورم إضافة الأخبار -->
+      <div id="editForm">
+        <h3>إضافة خبر جديد</h3>
+        <input type="text" id="newsTitle" placeholder="عنوان الخبر"><br>
+        <textarea id="newsContent" placeholder="محتوى الخبر"></textarea><br>
+        <input type="file" id="newsImage" accept="image/*"><br>
+        <button type="button" id="addNewsBtn">📤 رفع وإضافة الخبر</button>
+      </div>
+    </div>
+  </section>
 
   <footer>
     <p>© 2025 بوابة الإبداع - جميع الحقوق محفوظة</p>
   </footer>
 
-  <!-- ✅ Script placed at the very bottom -->
   <script>
     const ADMIN_PASS = "Admin_2002";
     const NEWS_KEY = "bawabatalibda3_news";
-    let newsEditMode = false;
+
+    const newsContainer = document.getElementById("newsContainer");
+    const editNewsBtn = document.getElementById("editNewsBtn");
+    const editForm = document.getElementById("editForm");
+    const newsTitle = document.getElementById("newsTitle");
+    const newsContent = document.getElementById("newsContent");
+    const newsImage = document.getElementById("newsImage");
+    const addNewsBtn = document.getElementById("addNewsBtn");
+
     let newsData = JSON.parse(localStorage.getItem(NEWS_KEY) || "[]");
+    let editMode = false;
+
+    renderNews();
 
     function renderNews() {
-      const container = document.getElementById("newsContainer");
-      container.innerHTML = "";
+      newsContainer.innerHTML = "";
       newsData.forEach((news, index) => {
         const card = document.createElement("div");
         card.className = "news-card";
 
-        const img = document.createElement("img");
-        img.src = news.image || "https://via.placeholder.com/600x300";
-        card.appendChild(img);
-
-        const h3 = document.createElement("h3");
-        h3.textContent = news.title;
-        card.appendChild(h3);
-
-        const p = document.createElement("p");
-        p.textContent = news.content;
-        card.appendChild(p);
-
-        if (newsEditMode) {
-          const delBtn = document.createElement("button");
-          delBtn.textContent = "🗑 حذف";
-          delBtn.style.background = "#ef4444";
-          delBtn.style.color = "#fff";
-          delBtn.style.border = "none";
-          delBtn.style.padding = "5px 10px";
-          delBtn.style.borderRadius = "5px";
-          delBtn.style.cursor = "pointer";
-          delBtn.onclick = () => {
+        let imgTag = news.image ? `<img src="${news.image}" alt="صورة الخبر">` : "";
+        card.innerHTML = `
+          ${imgTag}
+          <h3>${news.title}</h3>
+          <p>${news.content}</p>
+          <span class="remove-btn" data-index="${index}">🗑</span>
+        `;
+        if (editMode) {
+          card.querySelector(".remove-btn").style.display = "block";
+          card.querySelector(".remove-btn").onclick = () => {
             newsData.splice(index, 1);
-            localStorage.setItem(NEWS_KEY, JSON.stringify(newsData));
+            saveNews();
             renderNews();
           };
-          card.appendChild(delBtn);
         }
-
-        container.appendChild(card);
+        newsContainer.appendChild(card);
       });
     }
 
-    function handleEditNews() {
+    function saveNews() {
+      localStorage.setItem(NEWS_KEY, JSON.stringify(newsData));
+    }
+
+    editNewsBtn.addEventListener("click", () => {
       const pass = prompt("أدخل كلمة المرور للتعديل:");
       if (pass !== ADMIN_PASS) return alert("كلمة المرور غير صحيحة ❌");
-
-      newsEditMode = !newsEditMode;
-      const editForm = document.getElementById("editForm");
-      const editBtn = document.getElementById("editNewsBtn");
-
-      if (newsEditMode) {
-        editForm.style.display = "block";
-        editBtn.textContent = "🔒 الخروج من التعديل";
-      } else {
-        editForm.style.display = "none";
-        editBtn.textContent = "✏️ تعديل الأخبار";
-      }
+      editMode = true;
+      editForm.style.display = "block";
       renderNews();
-    }
+    });
 
-    function addNews() {
-      const title = document.getElementById("newsTitle").value.trim();
-      const content = document.getElementById("newsContent").value.trim();
-      const imageInput = document.getElementById("newsImage");
+    addNewsBtn.addEventListener("click", () => {
+      const title = newsTitle.value.trim();
+      const content = newsContent.value.trim();
 
-      if (!title || !content) {
-        alert("الرجاء إدخال عنوان الخبر ومحتواه");
-        return;
-      }
+      if (!title || !content) return alert("⚠️ الرجاء إدخال عنوان الخبر ومحتواه");
 
-      if (imageInput.files && imageInput.files[0]) {
+      let imageData = "";
+      if (newsImage.files[0]) {
         const reader = new FileReader();
         reader.onload = function(e) {
-          saveNews(title, content, e.target.result);
+          imageData = e.target.result;
+          saveNewItem(title, content, imageData);
         };
-        reader.readAsDataURL(imageInput.files[0]);
+        reader.readAsDataURL(newsImage.files[0]);
       } else {
-        saveNews(title, content, "");
+        saveNewItem(title, content, "");
       }
-    }
+    });
 
-    function saveNews(title, content, image) {
+    function saveNewItem(title, content, image) {
       newsData.push({ title, content, image });
-      localStorage.setItem(NEWS_KEY, JSON.stringify(newsData));
+      newsTitle.value = "";
+      newsContent.value = "";
+      newsImage.value = "";
+      saveNews();
       renderNews();
-
-      // تنظيف الحقول
-      document.getElementById("newsTitle").value = "";
-      document.getElementById("newsContent").value = "";
-      document.getElementById("newsImage").value = "";
-      alert("✅ تم رفع الخبر بنجاح!");
+      alert("✅ تم إضافة الخبر بنجاح!");
     }
-
-    // ✅ Attach listeners now that DOM exists
-    renderNews();
-    document.getElementById("editNewsBtn").onclick = handleEditNews;
-    document.getElementById("addNewsBtn").onclick = addNews;
   </script>
 </body>
 </html>
