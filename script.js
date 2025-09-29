@@ -1,97 +1,6 @@
 /* ---------------------- CONFIG ---------------------- */
 const ADMIN_PASS = "Admin_2002";
 
-/* ---------------------- NEWS ---------------------- */
-const NEWS_KEY = "bawabatalibda3_news";
-let newsEditMode = false;
-let newsData = JSON.parse(localStorage.getItem(NEWS_KEY) || "[]");
-
-function renderNews() {
-  const container = document.getElementById("newsContainer");
-  if (!container) return;
-  container.innerHTML = "";
-
-  newsData.forEach((news, index) => {
-    const card = document.createElement("div");
-    card.className = "news-card";
-
-    const img = document.createElement("img");
-    img.src = news.image || "https://via.placeholder.com/600x300";
-    img.alt = news.title || "news image";
-    card.appendChild(img);
-
-    const h3 = document.createElement("h3");
-    h3.textContent = news.title;
-    card.appendChild(h3);
-
-    const p = document.createElement("p");
-    p.textContent = news.content;
-    card.appendChild(p);
-
-    if (newsEditMode) {
-      const delBtn = document.createElement("button");
-      delBtn.textContent = "🗑 حذف";
-      delBtn.addEventListener("click", () => removeNews(index));
-      card.appendChild(delBtn);
-    }
-
-    container.appendChild(card);
-  });
-}
-
-function handleEditNews() {
-  const pass = prompt("أدخل كلمة المرور للتعديل:");
-  if (pass !== ADMIN_PASS) return alert("كلمة المرور غير صحيحة ❌");
-
-  newsEditMode = !newsEditMode;
-  const editForm = document.getElementById("editForm");
-  const editBtn = document.getElementById("editNewsBtn");
-
-  if (newsEditMode) {
-    if (editForm) editForm.style.display = "block";
-    if (editBtn) editBtn.textContent = "🔒 الخروج من التعديل";
-  } else {
-    if (editForm) editForm.style.display = "none";
-    if (editBtn) editBtn.textContent = "✏️ تعديل الأخبار";
-  }
-
-  renderNews();
-}
-
-function addNews() {
-  const title = document.getElementById("newsTitle").value.trim();
-  const content = document.getElementById("newsContent").value.trim();
-  const imageInput = document.getElementById("newsImage");
-  let imageURL = "";
-  
-  if (imageInput.files && imageInput.files[0]) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      imageURL = e.target.result;
-      saveNews(title, content, imageURL);
-    };
-    reader.readAsDataURL(imageInput.files[0]);
-  } else {
-    saveNews(title, content, imageURL);
-  }
-}
-
-function saveNews(title, content, image) {
-  if (!title || !content) {
-    alert("الرجاء إدخال عنوان الخبر ومحتواه");
-    return;
-}
-
-  newsData.push({ title, content, image });
-  localStorage.setItem(NEWS_KEY, JSON.stringify(newsData));
-  renderNews();
-  
-  // تنظيف الفورم
-  document.getElementById("newsTitle").value = "";
-  document.getElementById("newsContent").value = "";
-  document.getElementById("newsImage").value = "";
-}
-
 
 /* ---------------------- PARENTS ---------------------- */
 const PARENTS_KEY = "bawabatalibda3_parents";
@@ -229,13 +138,7 @@ function toggleAchievementEdit() {
 
 /* ---------------------- INIT ---------------------- */
 document.addEventListener("DOMContentLoaded", () => {
-  // News
-  renderNews();
-  const editNewsBtn = document.getElementById("editNewsBtn");
-  if (editNewsBtn) editNewsBtn.addEventListener("click", handleEditNews);
-
-  const addNewsBtn = document.getElementById("editNewsBtn");
-  if (editNewsBtn) editNewsBtn.addEventListener("click", addNews);
+  
 
   // Parents
   setupParents();
